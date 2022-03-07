@@ -75,44 +75,6 @@ def whitespace_remover(df):
             pass
 
 
-"""
- Impute missing values by taking category-specific numerical and categorical imputations
- Credit: https://towardsdatascience.com/pandas-tricks-for-imputing-missing-data-63da3d14c0d6
- """
-
-
-def impute_numerical(df, categorical_column, numerical_column):
-    frames = []
-    # within a for-loop we can define column-specific data frames:
-    for i in list(set(df[categorical_column])):
-        df_category = df[df[categorical_column] == i]
-        # we can fill the missing values in these column-specific data frames with their respective median of numerical column:
-        if len(df_category) > 1:
-            # checking the length of the data frame within the for loop
-            # imputing with the column-specific median if the length is greater than one
-            df_category[numerical_column].fillna(df_category[numerical_column].median(), inplace=True)
-        else:
-            # If the length is equal to 1 we impute with the median across all countries
-            df_category[numerical_column].fillna(df[numerical_column].median(), inplace=True)
-        # We then append the result to a list we’ll call “frames”
-        frames.append(df_category)
-        final_df = pd.concat(frames)
-    return final_df
-
-
-def impute_categorical(df, categorical_column1, categorical_column2):
-    cat_frames = []
-    for i in list(set(df[categorical_column1])):
-        df_category = df[df[categorical_column1] == i]
-        if len(df_category) > 1:
-            df_category[categorical_column2].fillna(df_category[categorical_column2].mode()[0], inplace=True)
-        else:
-            df_category[categorical_column2].fillna(df[categorical_column2].mode()[0], inplace=True)
-        cat_frames.append(df_category)
-        # concatenate the resulting list of data frames:
-        cat_df = pd.concat(cat_frames)
-    return cat_df
-
 
 
 
@@ -202,9 +164,9 @@ def profile_summary(dataset, plot=False):
     print(pf.to_string())
     
     
-def write_interim_path(df, csv_name): 
+def write_interim_path(df, csv_name, folder_name): 
     # set the path of the cleaned data to data 
-    interim_data_path = os.path.join(os.path.pardir, '..', 'data','interim', 'national_leagues')
+    interim_data_path = os.path.join(os.path.pardir, '..', 'data','interim', folder_name)
 
     write_interim_path = os.path.join(interim_data_path, csv_name)
     
