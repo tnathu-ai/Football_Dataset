@@ -10,7 +10,6 @@ import os
 
 from scipy.stats import kurtosis, skew
 
-
 pd.set_option('display.max_rows', 200)
 pd.set_option('display.max_columns', 200)
 
@@ -22,36 +21,14 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-def style(table):
-    """
-    quick styling
-    style: https://pandas.pydata.org/docs/reference/api/pandas.io.formats.style.Styler.background_gradient.html
-    color: https://matplotlib.org/stable/tutorials/colors/colormaps.html
-    """
-    view = table.style.background_gradient(cmap='Pastel1')
-    return view
+
 
 def rename_cols(df):
     rename_cols = ['league_division', 'match_date', 'home_team', 'away_team', 
                                      'full_time_home_team_goals', 'full_time_away_team_goals', 'full_time_result', 'half_time_home_team_goals', 
                                      'half_time_away_team_goals', 'half_time_result', 'referee', 'home_shots', 'away_shots', 
                                      'home_shots_on_target', 'away_shots_on_target', 'home_fouls_committed', 'away_fouls_committed', 
-                                     'home_corners', 'away_corners', 'home_yellow_cards', 'away_yellow_cards', 'home_red_cards', 'away_red_cards', 
-                                     'bet365_home_win_odds', 'bet365_draw_odds', 'bet365_away_win_odds', 
-                                     'bet&win_home_win_odds', 'bet&win_draw_odds', 'bet&win_away_win_odds', 
-                                     'interwetten_home_win_odds', 'interwetten_draw_odds', 'interwetten_away_win_odds', 
-                                     'ladbrokes_home_win_odds', 'ladbrokes_draw_odds', 'ladbrokes_away_win_odds', 
-                                     'pinnacle_home_win_odds', 'pinnacle_draw_odds', 'pinnacle_away_win_odds', 
-                                     'william_hill_home_win_odds', 'william_hill_draw_odds', 'william_hill_away_win_odds', 
-                                     'vc_bet_home_win_odds', 'vc_bet_draw_odds', 'vc_bet_away_win_odds', 
-                                     'no_betbrain_bookmakers_calculated_odds_averages_maximums', 
-                                     'betbrain_maximum_home_win_odds', 'betbrain_average_home_win_odds', 'betbrain_maximum_draw_odds', 
-                                     'betbrain_average_draw_win_odds', 'betbrain_maximum_away_win_odds', 'betbrain_average_away_win_odds', 
-                                     'no_betbrain_bookmakers_calculated_over/under_2.5_goals_averages_maximums', 
-                                     'betbrain_maximum_over_2.5_goals', 'betbrain_average_over_2.5_goals', 'betbrain_maximum_under_2.5_goals', 
-                                     'betbrain_average_under_2.5_goals', 'no_betbrain_bookmakers_asian_handicap_averages_maximums', 
-                                     'betbrain_size_handicap_home', 'betbrain_maximum_asian_handicap_home_odds', 'betbrain_average_asian_handicap_home_odds', 
-                                     'betbrain_maximum_asian_handicap_away_odds', 'betbrain_average_asian_handicap_away_odds', 'PSCH', 'PSCD', 'PSCA']
+                                     'home_corners', 'away_corners', 'home_yellow_cards', 'away_yellow_cards', 'home_red_cards', 'away_red_cards', 'match']
     df.columns = rename_cols
 
 def whitespace_remover(df):
@@ -73,7 +50,6 @@ def whitespace_remover(df):
         else:
             # if condition is False then it will do nothing.
             pass
-
 
 
 
@@ -173,3 +149,47 @@ def write_interim_path(df, csv_name, folder_name):
     # To write the data from the data frame into a file, use the to_csv function.
     df.to_csv(write_interim_path, index=False)
     print(f'cleaned {csv_name} data was successfully saved!\n\n\n')
+    
+    
+def concat_all(english_premier_league_name, efl_championship_name, efl_league_one_name, efl_league_two_name,
+               folder_name):
+    # set the path of the external data from the third party source
+    external_data_path = os.path.join(os.path.pardir, '', '..', 'data', 'external', 'National Leagues', folder_name)
+    # get each specific file
+    english_premier_league_df = os.path.join(external_data_path, english_premier_league_name)
+    efl_championship_df = os.path.join(external_data_path, efl_championship_name)
+    efl_league_one_df = os.path.join(external_data_path, efl_league_one_name)
+    efl_league_two_df = os.path.join(external_data_path, efl_league_two_name)
+
+    # import dataset
+    english_premier_league_df = pd.read_csv(english_premier_league_df, delimiter=',', skipinitialspace=True)
+    efl_championship_df = pd.read_csv(efl_championship_df, delimiter=',', skipinitialspace=True)
+    efl_league_one_df = pd.read_csv(efl_league_one_df, delimiter=',', skipinitialspace=True)
+    efl_league_two_df = pd.read_csv(efl_league_two_df, delimiter=',', skipinitialspace=True)
+
+    # print out the shape
+    print(f'The shape of the English Premier League {folder_name} is (row, column): {english_premier_league_df.shape}\n')
+    print(f'The shape of the Championship {folder_name} is (row, column): {efl_championship_df.shape}\n')
+    print(f'The shape of the League One {folder_name} is (row, column): {efl_league_one_df.shape}\n')
+    print(f'The shape of the League Two {folder_name} is (row, column): {efl_league_two_df.shape}\n')
+
+    english_premier_league_df.loc[:, 'match'] = 'english premier league'
+    efl_championship_df.loc[:, 'match'] = 'efl championship df'
+    efl_league_one_df.loc[:, 'match'] = 'efl league one df'
+    efl_league_two_df.loc[:, 'match'] = 'efl league two df'
+
+    df = pd.concat([english_premier_league_df, efl_championship_df, efl_league_one_df, efl_league_two_df], ignore_index=True)
+
+    df = df[['Div', 'Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG', 'FTR', 'HTHG', 'HTAG', 'HTR', 'Referee', 'HS', 'AS',
+         'HST', 'AST', 'HF', 'AF', 'HC', 'AC', 'HY', 'AY', 'HR', 'AR', 'match']]
+    
+    # print out list of District types
+    print(f'NUMBER OF DATE CATEGORIES: {df.Date.nunique()}; \n\nUNIQUE NAMES OF THE DATE CATEGORIES {df.Date.unique()}\n')
+    
+    print(f'The number of columns: {len(df.columns)}')
+    print(f'The list of the {folder_name} final columns\' names is: {df.columns.to_list()}\n\n\n')
+    return df
+
+
+    
+    
