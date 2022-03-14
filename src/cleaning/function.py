@@ -28,7 +28,7 @@ def rename_cols(df):
                                      'full_time_home_team_goals', 'full_time_away_team_goals', 'full_time_result', 'half_time_home_team_goals', 
                                      'half_time_away_team_goals', 'half_time_result', 'referee', 'home_shots', 'away_shots', 
                                      'home_shots_on_target', 'away_shots_on_target', 'home_fouls_committed', 'away_fouls_committed', 
-                                     'home_corners', 'away_corners', 'home_yellow_cards', 'away_yellow_cards', 'home_red_cards', 'away_red_cards', 'match']
+                                     'home_corners', 'away_corners', 'home_yellow_cards', 'away_yellow_cards', 'home_red_cards', 'away_red_cards', 'season']
     df.columns = rename_cols
 
 def whitespace_remover(df):
@@ -149,46 +149,6 @@ def write_interim_path(df, csv_name, folder_name):
     # To write the data from the data frame into a file, use the to_csv function.
     df.to_csv(write_interim_path, index=False)
     print(f'cleaned {csv_name} data was successfully saved!\n\n\n')
-    
-    
-def concat_all(english_premier_league_name, efl_championship_name, efl_league_one_name, efl_league_two_name,
-               folder_name):
-    # set the path of the external data from the third party source
-    external_data_path = os.path.join(os.path.pardir, '', '..', 'data', 'external', 'National Leagues', folder_name)
-    # get each specific file
-    english_premier_league_df = os.path.join(external_data_path, english_premier_league_name)
-    efl_championship_df = os.path.join(external_data_path, efl_championship_name)
-    efl_league_one_df = os.path.join(external_data_path, efl_league_one_name)
-    efl_league_two_df = os.path.join(external_data_path, efl_league_two_name)
-
-    # import dataset
-    english_premier_league_df = pd.read_csv(english_premier_league_df, delimiter=',', skipinitialspace=True)
-    efl_championship_df = pd.read_csv(efl_championship_df, delimiter=',', skipinitialspace=True)
-    efl_league_one_df = pd.read_csv(efl_league_one_df, delimiter=',', skipinitialspace=True)
-    efl_league_two_df = pd.read_csv(efl_league_two_df, delimiter=',', skipinitialspace=True)
-
-    # print out the shape
-    print(f'The shape of the English Premier League {folder_name} is (row, column): {english_premier_league_df.shape}\n')
-    print(f'The shape of the Championship {folder_name} is (row, column): {efl_championship_df.shape}\n')
-    print(f'The shape of the League One {folder_name} is (row, column): {efl_league_one_df.shape}\n')
-    print(f'The shape of the League Two {folder_name} is (row, column): {efl_league_two_df.shape}\n')
-
-    english_premier_league_df.loc[:, 'match'] = 'english premier league'
-    efl_championship_df.loc[:, 'match'] = 'efl championship df'
-    efl_league_one_df.loc[:, 'match'] = 'efl league one df'
-    efl_league_two_df.loc[:, 'match'] = 'efl league two df'
-
-    df = pd.concat([english_premier_league_df, efl_championship_df, efl_league_one_df, efl_league_two_df], ignore_index=True)
-
-    df = df[['Div', 'Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG', 'FTR', 'HTHG', 'HTAG', 'HTR', 'Referee', 'HS', 'AS',
-         'HST', 'AST', 'HF', 'AF', 'HC', 'AC', 'HY', 'AY', 'HR', 'AR', 'match']]
-    
-    # print out list of District types
-    print(f'NUMBER OF DATE CATEGORIES: {df.Date.nunique()}; \n\nUNIQUE NAMES OF THE DATE CATEGORIES {df.Date.unique()}\n')
-    
-    print(f'The number of columns: {len(df.columns)}')
-    print(f'The list of the {folder_name} final columns\' names is: {df.columns.to_list()}\n\n\n')
-    return df
 
 
     
