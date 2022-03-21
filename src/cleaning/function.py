@@ -26,7 +26,7 @@ warnings.filterwarnings('ignore')
 def rename_cols(df):
     rename_cols = ['league_division', 'match_date', 'home_team', 'away_team', 
                                      'full_time_home_team_goals', 'full_time_away_team_goals', 'full_time_result', 'half_time_home_team_goals', 
-                                     'half_time_away_team_goals', 'half_time_result', 'referee', 'home_shots', 'away_shots', 
+                                     'half_time_away_team_goals', 'half_time_result', 'home_shots', 'away_shots', 
                                      'home_shots_on_target', 'away_shots_on_target', 'home_fouls_committed', 'away_fouls_committed', 
                                      'home_corners', 'away_corners', 'home_yellow_cards', 'away_yellow_cards', 'home_red_cards', 'away_red_cards', 'season']
     df.columns = rename_cols
