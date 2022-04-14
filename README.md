@@ -1,11 +1,10 @@
-# Football_Dataset
+# Collect & Clean Football Dataset: National Leagues & World Cup
 Xây dựng Football Dataset
-![](assets/images/Xác định thắng, thua hoặc hòa trên sân nhà.jpg)
 
 
+![](assets/images/win-loss-tie.jpg)
 
 ## Repository Structure
-
 ```
 ├── LICENSE
 ├── Makefile           <- Makefile with commands like `make data` or `make train`
@@ -17,11 +16,9 @@ Xây dựng Football Dataset
 │   └── raw            <- The original, immutable data dump.
 │
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
+├── SQL-queries        <- SQL scripts to understand the data
+`│`
+├── notebooks          <- Jupyter notebooks. 
 │
 ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
 │   └── figures        <- Generated graphics and figures to be used in reporting
