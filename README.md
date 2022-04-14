@@ -11,6 +11,10 @@ Xây dựng Football Dataset
 |
 ├── README.md          <- The top-level README for developers using this project.
 |
+├── assets             <- The assets folder contains images, videos, and other media.
+|   ├── images          <- The images folder.
+|
+|
 ├── data
 │   ├── external       <- Data from third party sources.
 │   ├── interim        <- Intermediate data that has been transformed.
@@ -20,23 +24,22 @@ Xây dựng Football Dataset
 │
 ├── SQL_queries        <- SQL scripts to understand the data
 |
-├── notebooks          <- Jupyter notebooks.
-│ └── national_leagues <- A notebook for cleaning and exploring the National Leagues data.
-│ └── world_cup  <- A notebook for cleaning and exploring the World Cup data.   
+├── notebooks           <- Jupyter notebooks.
+│ └── national_leagues  <- A notebook for cleaning and exploring the National Leagues data.
+│ └── world_cup         <- A notebook for cleaning and exploring the World Cup data.   
 | 
-├── reports            <- Generated analysis as PDF
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
 |
-├── src                <- Source code for use in this project.
-│   ├── __init__.py    <- Makes src a Python module
+├── src                    <- Source code for use in this project.
+│   ├── __init__.py        <- Makes src a Python module
 │   │
 │   ├── cleaning           <- Scripts to clean the data
 │  
 |
 |
-│── .gitignore                <- plain text file contains files/directories to ignore
+│── .gitignore         <- plain text file contains files/directories to ignore
+├── reports            <- Generated analysis as PDF
+│
+├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+│                         generated with `pip freeze > requirements.txt`
 
 ```
