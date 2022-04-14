@@ -1,4 +1,5 @@
-# Collect & Clean Football Dataset: National Leagues & World Cup
+# National Leagues & World Cup Datasets
+
 Xây dựng Football Dataset
 
 
@@ -7,8 +8,9 @@ Xây dựng Football Dataset
 ## Repository Structure
 ```
 ├── LICENSE
-├── Makefile           <- Makefile with commands like `make data` or `make train`
+|
 ├── README.md          <- The top-level README for developers using this project.
+|
 ├── data
 │   ├── external       <- Data from third party sources.
 │   ├── interim        <- Intermediate data that has been transformed.
@@ -16,12 +18,13 @@ Xây dựng Football Dataset
 │   └── raw            <- The original, immutable data dump.
 │
 │
-├── SQL-queries        <- SQL scripts to understand the data
-`│`
-├── notebooks          <- Jupyter notebooks. 
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
+├── SQL_queries        <- SQL scripts to understand the data
+|
+├── notebooks          <- Jupyter notebooks.
+│ └── national_leagues <- A notebook for cleaning and exploring the National Leagues data.
+│ └── world_cup  <- A notebook for cleaning and exploring the World Cup data.   
+| 
+├── reports            <- Generated analysis as PDF
 │
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
@@ -30,9 +33,8 @@ Xây dựng Football Dataset
 ├── src                <- Source code for use in this project.
 │   ├── __init__.py    <- Makes src a Python module
 │   │
-│   ├── data           <- Scripts to download or generate data
-│     └── make_dataset.py
-│
+│   ├── cleaning           <- Scripts to clean the data
+│  
 |
 |
 │── .gitignore                <- plain text file contains files/directories to ignore
